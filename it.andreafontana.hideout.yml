@@ -1,0 +1,41 @@
+app-id: it.andreafontana.hideout
+runtime: org.gnome.Platform
+runtime-version: '50'
+sdk: org.gnome.Sdk
+command: hideout
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --filesystem=host
+  - --filesystem=/tmp
+
+  - --talk-name=org.freedesktop.secrets
+  - --talk-name=org.gnupg.gpg-agent
+  
+build-options:
+  build-args:
+    - --share=network
+
+modules:
+  - name: ldc
+    buildsystem: simple
+    sources:
+      - type: archive
+        url: https://github.com/ldc-developers/ldc/releases/download/v1.42.0/ldc2-1.42.0-linux-x86_64.tar.xz
+        sha256: a7bc9c956138f558cadf9c962352f59d41c80df6eb3ae3f8039f25be14a69303
+        strip-components: 1
+    build-commands:
+      - cp -r * /app/
+
+  - name: hideout
+    buildsystem: simple
+    build-commands:
+      - dub build --compiler=/app/bin/ldc2 --build=release --d-version=Flatpak
+      - install -D hideout /app/bin/hideout
+      - install -D hideout_icon.svg /app/share/icons/hicolor/scalable/apps/it.andreafontana.hideout.svg
+      - install -D it.andreafontana.hideout.desktop /app/share/applications/it.andreafontana.hideout.desktop
+    sources:
+      - type: dir
+        path: .

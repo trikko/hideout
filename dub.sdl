@@ -1,0 +1,9 @@
+name "hideout"
+description "Hideout is a minimal and secure desktop application for file encryption and decryption, powered by GnuPG."
+authors "Andrea Fontana"
+copyright "Copyright © 2026, Andrea Fontana"
+license "MIT"
+dependency "gid:adw1" version="~>0.9.9"
+
+preBuildCommands "glib-compile-resources --sourcedir=data --target=data/resources.gresource data/resources.xml"
+stringImportPaths "data"

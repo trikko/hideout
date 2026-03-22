@@ -1,0 +1,26 @@
+.dub/
+.flatpak-builder/
+build-dir/
+docs/
+docs.json
+__dummy.html
+build_output.txt
+data/resources.gresource
+
+# Binaries
+/hideout
+hideout.so
+hideout.dylib
+hideout.dll
+libhideout.a
+hideout.a
+hideout.lib
+hideout-test-*
+*.exe
+it.andreafontana.hideout.flatpak
+
+# Objects and debug
+*.o
+*.obj
+*.pdb
+*.lst
