@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>it.andreafontana.hideout</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>Hideout</name>
+  <summary>Simple and secure file encryption and decryption</summary>
+
+  <description>
+    <p>
+      Hideout is a minimal and secure desktop application for file encryption and decryption, 
+      powered by GnuPG. It provides a simple drag-and-drop interface to protect your sensitive files.
+    </p>
+    <ul>
+      <li>Simple UI: Drag and drop files to encrypt or decrypt.</li>
+      <li>Secure: Uses GPG symmetric encryption.</li>
+      <li>Multi-language: Supported in several languages.</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">it.andreafontana.hideout.desktop</launchable>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>The main window of Hideout</caption>
+      <image type="source">https://raw.githubusercontent.com/andreafontana/hideout/main/hideout_screenshot.png</image>
+    </screenshot>
+  </screenshots>
+
+  <url type="homepage">https://github.com/andreafontana/hideout</url>
+  <url type="bugtracker">https://github.com/andreafontana/hideout/issues</url>
+  <url type="vcs-browser">https://github.com/andreafontana/hideout</url>
+
+  <content_rating type="oars-1.1" />
+
+  <releases>
+    <release version="0.9.9" date="2026-03-22">
+       <description>
+         <p>Initial release of Hideout.</p>
+       </description>
+    </release>
+  </releases>
+</component>
