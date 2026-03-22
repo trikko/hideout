@@ -17,7 +17,8 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y flatpak flatpak-builder
-        sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+        flatpak install --user -y flathub org.gnome.Sdk/x86_64/50 org.gnome.Platform/x86_64/50
     
     - name: Set VERSION from tag
       if: startsWith(github.ref, 'refs/tags/v')
@@ -31,3 +32,4 @@ jobs:
         bundle: hideout.flatpak
         manifest-path: it.andreafontana.hideout.yml
         cache-key: flatpak-builder-${{ github.sha }}
+        install-deps-from: ""
