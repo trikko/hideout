@@ -9,16 +9,23 @@ on:
 
 jobs:
   flatpak:
-    runs-on: ubuntu-latest
+    name: "Flatpak (${{ matrix.arch }})"
+    runs-on: ${{ matrix.runner }}
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-49
+      options: --privileged
+    strategy:
+      matrix:
+        arch: [x86_64, aarch64]
+        include:
+          - arch: x86_64
+            runner: ubuntu-latest
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+      fail-fast: false
+    
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Install flatpak and flatpak-builder
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y flatpak flatpak-builder
-        flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-        flatpak install --user -y flathub org.gnome.Sdk/x86_64/50 org.gnome.Platform/x86_64/50
     
     - name: Set VERSION from tag
       if: startsWith(github.ref, 'refs/tags/v')
@@ -29,7 +36,7 @@ jobs:
     
     - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
       with:
-        bundle: hideout.flatpak
+        bundle: hideout-${{ matrix.arch }}.flatpak
         manifest-path: it.andreafontana.hideout.yml
-        cache-key: flatpak-builder-${{ github.sha }}
-        install-deps-from: ""
+        cache-key: flatpak-builder-${{ matrix.arch }}-${{ github.sha }}
+        arch: ${{ matrix.arch }}
