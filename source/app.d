@@ -156,11 +156,13 @@ int main(string[] args)
             btnIssue.addCssClass("flat");
             buttonsGrid.append(btnIssue);
 
-            version (Flatpak) {} else {
-                auto btnInstall = new gtk.button.Button();
-                btnInstall.setLabel(_(Msg.btn_install));
-                btnInstall.addCssClass("suggested-action");
-                buttonsGrid.append(btnInstall);
+            version (linux) {
+                version (Flatpak) {} else {
+                    auto btnInstall = new gtk.button.Button();
+                    btnInstall.setLabel(_(Msg.btn_install));
+                    btnInstall.addCssClass("suggested-action");
+                    buttonsGrid.append(btnInstall);
+                }
             }
 
             btnWeb.connectClicked((gtk.button.Button b) {
@@ -177,53 +179,55 @@ int main(string[] args)
                 launcher.launch(infoWin, null, null);
             });
 
-            version (Flatpak) {} else {
-                btnInstall.connectClicked((gtk.button.Button b) {
-                    try {
-                        import std.process : environment;
-                        import std.file : copy, write, mkdirRecurse, exists;
-                        import std.path : buildPath, expandTilde;
+            version (linux) {
+                version (Flatpak) {} else {
+                    btnInstall.connectClicked((gtk.button.Button b) {
+                        try {
+                            import std.process : environment;
+                            import std.file : copy, write, mkdirRecurse, exists;
+                            import std.path : buildPath, expandTilde;
 
-                        string home = environment.get("HOME");
-                        string appsPath = buildPath(home, ".local/share/applications");
-                        string iconsPath = buildPath(home, ".local/share/icons/hicolor/scalable/apps");
+                            string home = environment.get("HOME");
+                            string appsPath = buildPath(home, ".local/share/applications");
+                            string iconsPath = buildPath(home, ".local/share/icons/hicolor/scalable/apps");
 
-                        if (!exists(appsPath)) mkdirRecurse(appsPath);
-                        if (!exists(iconsPath)) mkdirRecurse(iconsPath);
+                            if (!exists(appsPath)) mkdirRecurse(appsPath);
+                            if (!exists(iconsPath)) mkdirRecurse(iconsPath);
 
-                        // Copio l'icona
-                        string iconSource = buildPath(environment.get("PWD"), "hideout_icon.svg");
-                        string iconDest = buildPath(iconsPath, "it.andreafontana.hideout.svg");
-                        if (exists(iconSource)) copy(iconSource, iconDest);
+                            // Copio l'icona
+                            string iconSource = buildPath(environment.get("PWD"), "hideout_icon.svg");
+                            string iconDest = buildPath(iconsPath, "it.andreafontana.hideout.svg");
+                            if (exists(iconSource)) copy(iconSource, iconDest);
 
-                        // Creo il file desktop
-                        string desktopPath = buildPath(appsPath, "it.andreafontana.hideout.desktop");
-                        string exePath = buildPath(environment.get("PWD"), "hideout");
-                        
-                        string desktopContent = 
-                            "[Desktop Entry]\n" ~
-                            "Name=Hideout\n" ~
-                            "Comment=Secure file encryption and decryption\n" ~
-                            "Exec=" ~ exePath ~ " %f\n" ~
-                            "Icon=it.andreafontana.hideout\n" ~
-                            "Terminal=false\n" ~
-                            "Type=Application\n" ~
-                            "Categories=Utility;Security;\n" ~
-                            "MimeType=application/pgp-encrypted;\n" ~
-                            "StartupNotify=true\n";
+                            // Creo il file desktop
+                            string desktopPath = buildPath(appsPath, "it.andreafontana.hideout.desktop");
+                            string exePath = buildPath(environment.get("PWD"), "hideout");
+                            
+                            string desktopContent = 
+                                "[Desktop Entry]\n" ~
+                                "Name=Hideout\n" ~
+                                "Comment=Secure file encryption and decryption\n" ~
+                                "Exec=" ~ exePath ~ " %f\n" ~
+                                "Icon=it.andreafontana.hideout\n" ~
+                                "Terminal=false\n" ~
+                                "Type=Application\n" ~
+                                "Categories=Utility;Security;\n" ~
+                                "MimeType=application/pgp-encrypted;\n" ~
+                                "StartupNotify=true\n";
 
-                        write(desktopPath, desktopContent);
-                        executeShell("update-desktop-database " ~ appsPath);
-                        
-                        auto toast = new adw.toast.Toast(_(Msg.toast_install_success));
-                        infoToastOverlay.addToast(toast);
-                        b.setLabel("Installed!");
-                        b.setSensitive(false);
-                    } catch (Exception ex) {
-                        auto toast = new adw.toast.Toast(_(Msg.toast_install_fail) ~ ex.msg);
-                        infoToastOverlay.addToast(toast);
-                    }
-                });
+                            write(desktopPath, desktopContent);
+                            executeShell("update-desktop-database " ~ appsPath);
+                            
+                            auto toast = new adw.toast.Toast(_(Msg.toast_install_success));
+                            infoToastOverlay.addToast(toast);
+                            b.setLabel("Installed!");
+                            b.setSensitive(false);
+                        } catch (Exception ex) {
+                            auto toast = new adw.toast.Toast(_(Msg.toast_install_fail) ~ ex.msg);
+                            infoToastOverlay.addToast(toast);
+                        }
+                    });
+                }
             }
 
             infoWin.present();

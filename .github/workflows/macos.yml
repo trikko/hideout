@@ -1,0 +1,42 @@
+name: Build macOS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install build dependencies
+      run: |
+        brew update
+        brew install ldc dub pkg-config gtk4 libadwaita adwaita-icon-theme librsvg
+
+    - name: Generate macOS Icon
+      run: |
+        mkdir hideout.iconset
+        for size in 16 32 128 256 512; do
+          rsvg-convert -w $size -h $size hideout_icon.svg -o hideout.iconset/icon_${size}x${size}.png
+          rsvg-convert -w $((size * 2)) -h $((size * 2)) hideout_icon.svg -o hideout.iconset/icon_${size}x${size}@2x.png
+        done
+        iconutil -c icns hideout.iconset -o data/hideout.icns
+
+    - name: Build Application
+      run: |
+        dub build --compiler=ldc2 -b release
+
+    - name: Package Bundle
+      run: |
+        chmod +x scripts/create_macos_app.sh
+        ./scripts/create_macos_app.sh
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Hideout-macOS
+        path: Hideout.app/
