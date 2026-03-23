@@ -47,17 +47,24 @@ struct GPGProgress {
 }
 
 /**
+ * Encryption type detected by GPG.
+ */
+enum EncryptionType { unknown, symmetric, asymmetric }
+
+/**
  * Exception thrown when GPG execution fails.
  */
 class GPGException : Exception {
     int returnCode;
     string stdout;
     string stderr;
+    EncryptionType type;
 
-    this(int rc, string so, string se, string file = __FILE__, size_t line = __LINE__) {
+    this(int rc, string so, string se, EncryptionType type = EncryptionType.unknown, string file = __FILE__, size_t line = __LINE__) {
         this.returnCode = rc;
         this.stdout = so;
         this.stderr = se;
+        this.type = type;
         super("GPG exited with code " ~ rc.to!string ~ "\n\nSTDERR:\n" ~ se ~ "\n\nSTDOUT:\n" ~ so, file, line);
     }
 }
@@ -161,6 +168,63 @@ class GPG {
             // GPG not found or other process error
         }
         return "";
+    }
+
+    /**
+     * Checks the encryption type of a file using gpg --list-packets.
+     * @param file Path to the file.
+     * @return EncryptionType (symmetric, asymmetric, or unknown).
+     */
+    EncryptionType encryptionType(string file) {
+        if (file.length == 0) return EncryptionType.unknown;
+
+        try {
+            auto pipes = pipeProcess([_executable, "--list-packets", "--passphrase", "1", "--batch", "--yes", file], Redirect.stdout | Redirect.stderr);
+            return _parseListPackets(pipes);
+        } catch (Exception) { }
+        
+        return EncryptionType.unknown;
+    }
+
+    /**
+     * Checks the encryption type of raw data using gpg --list-packets.
+     * @param data Raw data to check.
+     * @return EncryptionType (symmetric, asymmetric, or unknown).
+     */
+    EncryptionType encryptionType(const(ubyte)[] data) {
+        if (data.length == 0) return EncryptionType.unknown;
+
+        try {
+            auto pipes = pipeProcess([_executable, "--list-packets", "--passphrase", "1", "--batch", "--yes"], Redirect.stdin | Redirect.stdout | Redirect.stderr);
+            pipes.stdin.rawWrite(data);
+            pipes.stdin.close();
+            return _parseListPackets(pipes);
+        } catch (Exception) { }
+        
+        return EncryptionType.unknown;
+    }
+
+    private EncryptionType _parseListPackets(ProcessPipes pipes) {
+        EncryptionType result = EncryptionType.unknown;
+
+        foreach (line; pipes.stdout.byLine()) {
+            if (line.canFind(":symkey")) {
+                result = EncryptionType.symmetric;
+                break;
+            }
+
+            if (line.canFind(":pubkey")) {
+                result = EncryptionType.asymmetric;
+                break;
+            }
+        }
+        
+        // Clean up
+        try { pipes.stdout.close(); } catch (Exception) {}
+        try { pipes.stderr.close(); } catch (Exception) {}
+        std.process.wait(pipes.pid);
+
+        return result;
     }
 
     /**
@@ -338,8 +402,16 @@ class GPG {
 
         if (atomicLoad(_failedEarly)) {
             if (tempOutput.length && exists(tempOutput)) try { remove(tempOutput); } catch (Exception) {}
-            // Forza il codice errore a 2 siccome terminato prematuramente per password
-            throw new GPGException(2, cast(string)outBuf.data, cast(string)errBuf.data);
+            
+            EncryptionType type = EncryptionType.unknown;
+
+            if (_inputFrom.length) {
+                type = encryptionType(_inputFrom);
+            } else if (_input.length) {
+                type = encryptionType(_input);
+            }
+
+            throw new GPGException(2, cast(string)outBuf.data, cast(string)errBuf.data, type);
         }
 
         if (atomicLoad(_cancelled)) {

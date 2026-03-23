@@ -213,6 +213,7 @@ int main(string[] args)
                             "StartupNotify=true\n";
 
                         write(desktopPath, desktopContent);
+                        executeShell("update-desktop-database " ~ appsPath);
                         
                         auto toast = new adw.toast.Toast(_(Msg.toast_install_success));
                         infoToastOverlay.addToast(toast);
@@ -422,6 +423,7 @@ int main(string[] args)
         auto btnAction = new gtk.button.Button();
         btnAction.addCssClass("suggested-action");
         btnAction.setSizeRequest(140, -1);
+        btnAction.setVisible(false);
         
         btnAction.connectClicked((gtk.button.Button btn) {
             import gtk.file_launcher;
@@ -437,10 +439,24 @@ int main(string[] args)
         auto btnRestart = new gtk.button.Button();
         btnRestart.setLabel(_(Msg.restart_btn));
         btnRestart.setSizeRequest(140, -1);
+
+        auto btnRetry = new gtk.button.Button();
+        btnRetry.setLabel(_(Msg.btn_retry));
+        btnRetry.setSizeRequest(140, -1);
+        btnRetry.addCssClass("suggested-action");
+        btnRetry.setVisible(false);
+
+        btnRetry.connectClicked((gtk.button.Button btn) {
+            pwdEntry.setText("");
+            stack.setVisibleChildName("config");
+            pwdEntry.grabFocus();
+        });
         
         auto doneButtons = new gtk.box.Box(Orientation.Horizontal, 12);
+        doneButtons.setHomogeneous(true);
         doneButtons.setHalign(Align.Center);
         doneButtons.append(btnAction);
+        doneButtons.append(btnRetry);
         doneButtons.append(btnRestart);
         
         auto doneBox = new gtk.box.Box(Orientation.Vertical, 12);
@@ -628,6 +644,8 @@ int main(string[] args)
                         currentActionFile = outputFile;
                         currentActionIsDecrypt = decrypt;
                         
+                        btnAction.setVisible(true);
+                        btnRetry.setVisible(false);
                         stack.setVisibleChildName("done");
                         return false;
                     });
@@ -637,28 +655,52 @@ int main(string[] args)
                     string friendlyMsg = _(Msg.err_generic);
                     
                     if (auto gpgEx = cast(GPGException)ex) {
+                        bool isWrongPassword = false;
                         if (gpgEx.returnCode == 2) {
-                            friendlyMsg = _(Msg.err_bad_password);
-                        } else if (decrypt && gpgEx.stderr.indexOf("decryption failed") >= 0) {
-                            friendlyMsg = _(Msg.err_corrupted);
+                            final switch (gpgEx.type) with (EncryptionType) {
+                                case symmetric:
+                                    friendlyMsg = _(Msg.err_bad_password);
+                                    isWrongPassword = true;
+                                    break;
+                                case asymmetric:
+                                    friendlyMsg = _(Msg.err_asymmetric);
+                                    break;
+                                case unknown:
+                                    friendlyMsg = _(Msg.err_unknown_gpg);
+                                    break;
+                            }
                         } else if (gpgEx.returnCode < 0 || gpgEx.stderr.indexOf("cancelled") >= 0) {
                             friendlyMsg = _(Msg.err_cancelled);
+                        } else if (decrypt && gpgEx.stderr.indexOf("decryption failed") >= 0) {
+                            friendlyMsg = _(Msg.err_corrupted);
                         } else {
                             friendlyMsg = _(Msg.err_code) ~ to!string(gpgEx.returnCode) ~ ").";
                         }
-                    } else {
-                        friendlyMsg = ex.msg; // Fallback
-                    }
 
-                    string m = friendlyMsg; // Capture alias for delegate
-                    idleAdd(0, cast(SourceFunc) delegate bool() {
-                        pageDone.setTitle(_(Msg.err_title));
-                        pageDone.setDescription(m);
-                        pageDone.setIconName("dialog-error-symbolic");
-                        btnAction.setVisible(false);
-                        stack.setVisibleChildName("done");
-                        return false;
-                    });
+                        string m = friendlyMsg; // Capture alias for delegate
+                        idleAdd(0, cast(SourceFunc) delegate bool() {
+                            pageDone.setTitle(_(Msg.err_title));
+                            pageDone.setDescription(m);
+                            pageDone.setIconName("dialog-error-symbolic");
+                            
+                            btnAction.setVisible(false);
+                            btnRetry.setVisible(isWrongPassword);
+                            
+                            stack.setVisibleChildName("done");
+                            return false;
+                        });
+                    } else {
+                        string m = ex.msg; // Capture alias for delegate
+                        idleAdd(0, cast(SourceFunc) delegate bool() {
+                            pageDone.setTitle(_(Msg.err_title));
+                            pageDone.setDescription(m);
+                            pageDone.setIconName("dialog-error-symbolic");
+                            btnAction.setVisible(false);
+                            btnRetry.setVisible(false);
+                            stack.setVisibleChildName("done");
+                            return false;
+                        });
+                    }
                 }
             }).start();
         }
