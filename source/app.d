@@ -504,6 +504,12 @@ int main(string[] args)
         auto dropTarget = new gtk.drop_target.DropTarget(gdk.file_list.FileList._getGType(), gdk.types.DragAction.Copy);
         dropTarget.connectDrop((gobject.value.Value value, double x, double y, gtk.drop_target.DropTarget dt) {
             import std.typecons : No;
+            
+            // Allow drop only on the selection page
+            if (stack.getVisibleChildName() != "select") {
+                return false;
+            }
+            
             void* boxedData = value.getBoxed();
             if (boxedData) {
                 auto fl = new gdk.file_list.FileList(boxedData, No.Take);
