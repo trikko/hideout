@@ -33,7 +33,7 @@ modules:
     sources:
       - type: archive
         url: https://github.com/trikko/hideout/archive/refs/tags/v0.9.10.tar.gz
-        sha256: 
+        sha256: d4d8f35890e99aeeb12c969e71749f870e729a12ef6f16946df565bbe39c4381
       - type: archive
         url: https://github.com/Kymorphia/gid/archive/refs/tags/v0.9.9.tar.gz
         sha256: 5b177d8e02bba4096d5c24fc38bb3b39b99f23c8ce04736a3b93e2927eeb835e
