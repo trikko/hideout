@@ -302,6 +302,10 @@ int main(string[] args)
         outBox.append(entryOutputFile);
         outBox.append(btnSelectOut);
 
+        version (Flatpak) {
+            entryOutputFile.setEditable(false);
+        }
+
         auto lblPwd = new gtk.label.Label(_(Msg.pwd_label));
         lblPwd.setHalign(Align.Start);
         lblPwd.addCssClass("dim-label");
@@ -309,7 +313,7 @@ int main(string[] args)
         auto pwdEntry = new gtk.password_entry.PasswordEntry();
         pwdEntry.setHalign(Align.Fill);
         pwdEntry.setMarginBottom(12);
-        
+
         auto btnConfigBox = new gtk.box.Box(Orientation.Horizontal, 12);
         btnConfigBox.setHomogeneous(true);
         btnConfigBox.setHalign(Align.Center);
@@ -348,6 +352,7 @@ int main(string[] args)
             }
 
             bool v = pwdEntry.getText().length > 0 && outName.length > 0 && isValid;
+
             btnStart.setSensitive(v);
             if (v) btnStart.addCssClass("suggested-action");
             else btnStart.removeCssClass("suggested-action");
@@ -473,26 +478,30 @@ int main(string[] args)
         // --- Logic: Handle File ---
         void handleFile(string filepath) {
             currentInputFile = filepath;
-            
-            import std.string : indexOf;
-            // If the file comes from the Document Portal, we shouldn't use its dir as output default
-            // because portal directories are usually read-only/ephemeral for new files.
-            if (filepath.indexOf("/run/user/") >= 0 && filepath.indexOf("/doc/") >= 0) {
-                import std.process : environment;
-                currentOutputDir = environment.get("HOME", "/tmp");
-            } else {
-                currentOutputDir = dirName(filepath);
-            }
+            import std.process : environment;
+            string home = environment.get("HOME", "");
             
             pwdEntry.setText("");
             
+            currentOutputDir = dirName(filepath);
+
+            bool autoFill = true;
+            version (Flatpak) {
+                if (home.length == 0 || filepath.startsWith(home) == false) {
+                    currentOutputDir = home;
+                    autoFill = false;
+                }
+            } 
+
+            entryOutputFile.setText("");
+
             if (extension(filepath) == ".gpg") {
                 opCombo.setActiveId("decrypt");
-                entryOutputFile.setText(baseName(stripExtension(filepath)));
+                if (autoFill) entryOutputFile.setText(baseName(stripExtension(filepath)));
                 lblConfigTitle.setLabel(_(Msg.title_decrypt_file));
             } else {
                 opCombo.setActiveId("encrypt");
-                entryOutputFile.setText(baseName(filepath) ~ ".gpg");
+                if (autoFill) entryOutputFile.setText(baseName(filepath) ~ ".gpg");
                 lblConfigTitle.setLabel(_(Msg.title_encrypt_file));
             }
             
@@ -535,16 +544,26 @@ int main(string[] args)
         opCombo.connectChanged((gtk.combo_box_text.ComboBoxText combo) {
             if (currentInputFile.length == 0) return;
             string op = combo.getActiveId();
+
+            bool autoFill = true;
+            version (Flatpak) {
+                import std.process : environment;
+                string home = environment.get("HOME", "");
+                autoFill = (home.length > 0 && currentInputFile.startsWith(home));
+            }
+
+            entryOutputFile.setText("");
+            
             if (op == "decrypt") {
-                if (extension(currentInputFile) == ".gpg") {
-                    entryOutputFile.setText(baseName(stripExtension(currentInputFile)));
-                } else {
-                    entryOutputFile.setText(baseName(currentInputFile) ~ ".decrypted");
+                if (autoFill) {
+                    if (extension(currentInputFile) == ".gpg") entryOutputFile.setText(baseName(stripExtension(currentInputFile)));
+                    else entryOutputFile.setText(baseName(currentInputFile) ~ ".decrypted");
                 }
+
                 btnStart.setLabel(_(Msg.btn_decrypt));
                 lblConfigTitle.setLabel(_(Msg.title_decrypt_file));
             } else {
-                entryOutputFile.setText(baseName(currentInputFile) ~ ".gpg");
+                if (autoFill) entryOutputFile.setText(baseName(currentInputFile) ~ ".gpg");
                 btnStart.setLabel(_(Msg.btn_encrypt));
                 lblConfigTitle.setLabel(_(Msg.title_encrypt_file));
             }
