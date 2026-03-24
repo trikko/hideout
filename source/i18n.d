@@ -71,7 +71,8 @@ enum Msg {
     btn_issues,
     btn_website,
     toast_install_success,
-    toast_install_fail
+    toast_install_fail,
+    hint_flatpak_manual
 }
 
 private __gshared string currentLang = "";
@@ -129,7 +130,8 @@ shared static this() {
             Msg.btn_issues: "Segnala un problema",
             Msg.btn_website: "Sito Web",
             Msg.toast_install_success: "File desktop installato!",
-            Msg.toast_install_fail: "Installazione fallita: "
+            Msg.toast_install_fail: "Installazione fallita: ",
+            Msg.hint_flatpak_manual: "A causa dei limiti di sicurezza di Flatpak, la destinazione deve essere confermata tramite il selettore file"
         ],
         "en": [
             Msg.app_title: "Hideout",
@@ -174,7 +176,8 @@ shared static this() {
             Msg.btn_issues: "Report an Issue",
             Msg.btn_website: "Website",
             Msg.toast_install_success: "Desktop Entry installed!",
-            Msg.toast_install_fail: "Installation failed: "
+            Msg.toast_install_fail: "Installation failed: ",
+            Msg.hint_flatpak_manual: "Due to Flatpak security restrictions, the destination must be confirmed using the file picker"
         ],
         "fr": [
             Msg.app_title: "Hideout",
@@ -219,7 +222,8 @@ shared static this() {
             Msg.btn_issues: "Signaler un problème",
             Msg.btn_website: "Site Web",
             Msg.toast_install_success: "Fichier desktop installé !",
-            Msg.toast_install_fail: "Échec de l'installation : "
+            Msg.toast_install_fail: "Échec de l'installation : ",
+            Msg.hint_flatpak_manual: "En raison des restrictions de sécurité de Flatpak, la destination doit être confirmée via le sélecteur de fichiers"
         ],
         "es": [
             Msg.app_title: "Hideout",
@@ -264,7 +268,8 @@ shared static this() {
             Msg.btn_issues: "Informar error",
             Msg.btn_website: "Sitio Web",
             Msg.toast_install_success: "¡Archivo desktop instalado!",
-            Msg.toast_install_fail: "La instalación falló: "
+            Msg.toast_install_fail: "La instalación falló: ",
+            Msg.hint_flatpak_manual: "Debido a las restricciones de seguridad de Flatpak, el destino debe confirmarse mediante el selector de archivos"
         ],
         "de": [
             Msg.app_title: "Hideout",
@@ -309,7 +314,8 @@ shared static this() {
             Msg.btn_issues: "Problem melden",
             Msg.btn_website: "Webseite",
             Msg.toast_install_success: "Desktop-Eintrag installiert!",
-            Msg.toast_install_fail: "Installation fehlgeschlagen: "
+            Msg.toast_install_fail: "Installation fehlgeschlagen: ",
+            Msg.hint_flatpak_manual: "Aufgrund der Sicherheitsbeschränkungen von Flatpak muss das Ziel über den Dateiwähler bestätigt werden"
         ],
         "pt": [
             Msg.app_title: "Hideout",
@@ -354,7 +360,8 @@ shared static this() {
             Msg.btn_issues: "Relatar problema",
             Msg.btn_website: "Site",
             Msg.toast_install_success: "Entrada desktop instalada!",
-            Msg.toast_install_fail: "A instalação falhou: "
+            Msg.toast_install_fail: "A instalação falhou: ",
+            Msg.hint_flatpak_manual: "Devido às restrições de segurança do Flatpak, o destino deve ser confirmado através do seletor de ficheiros"
         ]
     ];
 

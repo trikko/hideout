@@ -504,6 +504,18 @@ int main(string[] args)
                 if (autoFill) entryOutputFile.setText(baseName(filepath) ~ ".gpg");
                 lblConfigTitle.setLabel(_(Msg.title_encrypt_file));
             }
+
+            version (Flatpak) {
+                if (!autoFill && entryOutputFile.getText().length == 0) {
+                    entryOutputFile.secondaryIconName = "dialog-information-symbolic";
+                    entryOutputFile.secondaryIconTooltipText = _(Msg.hint_flatpak_manual);
+                    entryOutputFile.addCssClass("warning");
+                } else {
+                    entryOutputFile.secondaryIconName = null;
+                    entryOutputFile.secondaryIconTooltipText = null;
+                    entryOutputFile.removeCssClass("warning");
+                }
+            }
             
             stack.setVisibleChildName("config");
         }
@@ -567,6 +579,18 @@ int main(string[] args)
                 btnStart.setLabel(_(Msg.btn_encrypt));
                 lblConfigTitle.setLabel(_(Msg.title_encrypt_file));
             }
+
+            version (Flatpak) {
+                if (!autoFill && entryOutputFile.getText().length == 0) {
+                    entryOutputFile.secondaryIconName = "dialog-information-symbolic";
+                    entryOutputFile.secondaryIconTooltipText = _(Msg.hint_flatpak_manual);
+                    entryOutputFile.addCssClass("warning");
+                } else {
+                    entryOutputFile.secondaryIconName = null;
+                    entryOutputFile.secondaryIconTooltipText = null;
+                    entryOutputFile.removeCssClass("warning");
+                }
+            }
         });
 
         void checkPathSplit() {
@@ -615,6 +639,12 @@ int main(string[] args)
                     if (file) {
                         currentOutputDir = dirName(file.getPath());
                         entryOutputFile.setText(baseName(file.getPath()));
+
+                        version (Flatpak) {
+                            entryOutputFile.secondaryIconName = null;
+                            entryOutputFile.secondaryIconTooltipText = null;
+                            entryOutputFile.removeCssClass("warning");
+                        }
                     }
                 } catch (Exception e) {}
             });
