@@ -29,7 +29,7 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libgtk-4-dev libadwaita-1-dev glib-compile-resources
+        sudo apt-get install -y libgtk-4-dev libadwaita-1-dev libglib2.0-bin
 
     - name: Build
       run: |
