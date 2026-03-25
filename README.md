@@ -11,7 +11,8 @@ Hideout is a minimal and secure desktop application for file encryption and decr
 - **Multi-language**: Supported languages: English, Italian, French, Spanish, German, and Portuguese (BR).
 
 ## Download  
-[![Get it on FlatHub](https://flathub.org/api/badge?locale=en)](https://flathub.org/en/apps/it.andreafontana.hideout)
+<a href="https://flathub.org/en/apps/it.andreafontana.hideout"><img src="https://flathub.org/api/badge?locale=en" height="60"></a>
+<a href="https://snapcraft.io/hideout"><img src="https://snapcraft.io/en/dark/install.svg" height="60"></a>
 
 ## Build (system prerequisites)
 
