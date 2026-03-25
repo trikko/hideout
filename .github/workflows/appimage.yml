@@ -1,0 +1,65 @@
+name: AppImage
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master, main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  appimage:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set VERSION from tag
+      if: startsWith(github.ref, 'refs/tags/v')
+      run: |
+        TAG_VERSION=${GITHUB_REF#refs/tags/v}
+        echo "$TAG_VERSION" > data/VERSION
+        echo "Version set to $TAG_VERSION"
+
+    - name: Install D compiler
+      uses: dlang-community/setup-dlang@v1
+      with:
+        compiler: ldc-latest
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgtk-4-dev libadwaita-1-dev glib-compile-resources
+
+    - name: Build
+      run: |
+        # Pre-build commands if any
+        # (dub.sdl already handles glib-compile-resources via preBuildCommands)
+        dub build -c application --compiler=ldc2 --build=release
+        
+    - name: Setup AppDir
+      run: |
+        mkdir -p AppDir/usr/bin
+        mkdir -p AppDir/usr/share/applications
+        mkdir -p AppDir/usr/share/icons/hicolor/scalable/apps
+        mkdir -p AppDir/usr/share/metainfo
+        
+        cp hideout AppDir/usr/bin/hideout
+        cp it.andreafontana.hideout.desktop AppDir/usr/share/applications/it.andreafontana.hideout.desktop
+        cp hideout_icon.svg AppDir/usr/share/icons/hicolor/scalable/apps/it.andreafontana.hideout.svg
+        cp data/it.andreafontana.hideout.metainfo.xml AppDir/usr/share/metainfo/it.andreafontana.hideout.metainfo.xml
+
+    - name: Install appimage-builder
+      run: |
+        sudo apt install -y python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev
+        pip3 install --break-system-packages appimage-builder
+
+    - name: Create AppImage
+      run: |
+        appimage-builder --recipe AppImageBuilder.yml --skip-test
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Hideout-AppImage
+        path: Hideout-*.AppImage*
