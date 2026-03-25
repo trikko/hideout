@@ -10,12 +10,15 @@ Hideout is a minimal and secure desktop application for file encryption and decr
 - **Secure**: Uses GPG symmetric encryption. Passphrases are handled securely.
 - **Multi-language**: Supported languages: English, Italian, French, Spanish, German, and Portuguese (BR).
 
-## Prerequisites
+## Download  
+[![Get it on FlatHub](https://flathub.org/api/badge?locale=en)](https://flathub.org/en/apps/it.andreafontana.hideout)
+
+## Build (system prerequisites)
 
 - **GnuPG**: You must have `gpg` installed and available in your `PATH`.
 - **GTK4 & Libadwaita**: Required for the graphical interface.
 
-## How to Run
+## How to Build
 
 You need the [D compiler](https://dlang.org/download.html) and [DUB](https://code.dlang.org/getting_started) installed.
 
