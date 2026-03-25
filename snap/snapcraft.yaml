@@ -1,6 +1,7 @@
 name: hideout
 base: core24
-version: '0.9.11'
+# TODO: update version
+version: ''
 title: Hideout
 summary: Simple and secure file encryption and decryption
 description: |
