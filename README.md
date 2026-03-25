@@ -17,7 +17,7 @@ Hideout is a minimal and secure desktop application for file encryption and decr
 
 - **GnuPG**: You must have `gpg` installed and available in your `PATH`.
 - **GTK4 & Libadwaita**: Required for the graphical interface.
-- **D compiler**: Check the official [Dlang website](https://dlang.org/download.html) or download it from your distribution package manager.
+- **D compiler**: Check the official [dlang website](https://dlang.org/download.html) or download it from your distribution package manager.
 
 ## How to Build
 
