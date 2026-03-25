@@ -4,17 +4,61 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
   <name>Hideout</name>
+  <developer id="it.andreafontana">
+    <name>Andrea Fontana</name>
+  </developer>
+  
   <summary>Simple and secure file encryption and decryption</summary>
+  <summary xml:lang="it">Criptazione e decriptazione file semplice e sicura</summary>
+  <summary xml:lang="fr">Chiffrement et déchiffrement de fichiers simples et sécurisés</summary>
+  <summary xml:lang="es">Cifrado y descifrado de archivos sencillo y seguro</summary>
+  <summary xml:lang="de">Einfache und sichere Dateiverschlüsselung und -entschlüsselung</summary>
+  <summary xml:lang="pt">Criptografia e descriptografia de arquivos simples e segura</summary>
 
   <description>
     <p>
-      Hideout is a minimal and secure desktop application for file encryption and decryption, 
+      Hideout is a minimal and secure desktop application for file encryption and decryption,
       powered by GnuPG. It provides a simple drag-and-drop interface to protect your sensitive files.
+    </p>
+    <p xml:lang="it">
+      Hideout è un'applicazione desktop minimale e sicura per la criptazione e decriptazione di file,
+      basata su GnuPG. Fornisce una semplice interfaccia drag-and-drop per proteggere i tuoi file sensibili.
+    </p>
+    <p xml:lang="fr">
+      Hideout est une application de bureau minimale et sécurisée pour le chiffrement et le déchiffrement de fichiers,
+      propulsée par GnuPG. Elle offre une interface glisser-déposer simple pour protéger vos fichiers sensibles.
+    </p>
+    <p xml:lang="es">
+      Hideout es una aplicación de escritorio mínima y segura para el cifrado y descifrado de archivos,
+      basada en GnuPG. Proporciona una interfaz sencilla de arrastrar y soltar para proteger sus archivos confidenciales.
+    </p>
+    <p xml:lang="de">
+      Hideout ist eine minimale und sichere Desktop-Anwendung zur Dateiverschlüsselung und -entschlüsselung,
+      betrieben mit GnuPG. Sie bietet eine einfache Drag-and-Drop-Oberfläche zum Schutz Ihrer sensiblen Dateien.
+    </p>
+    <p xml:lang="pt">
+      Hideout é um aplicativo de desktop mínimo e seguro para criptografia e descriptografia de arquivos,
+      baseado em GnuPG. Ele fornece uma interface simples de arrastar e soltar para proteger seus arquivos confidenciais.
     </p>
     <ul>
       <li>Simple UI: Drag and drop files to encrypt or decrypt.</li>
+      <li xml:lang="it">Interfaccia semplice: trascina i file per criptarli o decriptarli.</li>
+      <li xml:lang="fr">Interface simple : glissez-déposez des fichiers pour les chiffrer ou les déchiffrer.</li>
+      <li xml:lang="es">Interfaz sencilla: arrastre y suelte archivos para cifrarlos o descifrarlos.</li>
+      <li xml:lang="de">Einfache Benutzeroberfläche: Dateien zum Verschlüsseln oder Entschlüsseln per Drag-and-Drop verschieben.</li>
+      <li xml:lang="pt">Interface simples: arraste e solte arquivos para criptografá-los ou descriptografá-los.</li>
       <li>Secure: Uses GPG symmetric encryption.</li>
+      <li xml:lang="it">Sicuro: utilizza la crittografia simmetrica GPG.</li>
+      <li xml:lang="fr">Sécurisé : utilise le chiffrement symétrique GPG.</li>
+      <li xml:lang="es">Seguro: utiliza cifrado simétrico GPG.</li>
+      <li xml:lang="de">Sicher: Verwendet symmetrische GPG-Verschlüsselung.</li>
+      <li xml:lang="pt">Seguro: utiliza criptografia simétrica GPG.</li>
       <li>Multi-language: Supported in several languages.</li>
+      <li xml:lang="it">Multi-lingua: supportato in diverse lingue.</li>
+      <li xml:lang="fr">Multi-langue : pris en charge dans plusieurs langues.</li>
+      <li xml:lang="es">Multilingüe: disponible en varios idiomas.</li>
+      <li xml:lang="de">Mehrsprachig: in mehreren Sprachen verfügbar.</li>
+      <li xml:lang="pt">Multilíngue: disponível em vários idiomas.</li>
     </ul>
   </description>
 
@@ -34,10 +78,18 @@
   <content_rating type="oars-1.1" />
 
   <releases>
-    <release version="0.9.9" date="2026-03-22">
+    <release version="0.9.11" date="2026-03-25">
        <description>
-         <p>Initial release of Hideout.</p>
+          <p>First Release</p>
        </description>
     </release>
   </releases>
+  <languages>
+    <lang percentage="100">en</lang>
+    <lang percentage="100">it</lang>
+    <lang percentage="100">fr</lang>
+    <lang percentage="100">es</lang>
+    <lang percentage="100">de</lang>
+    <lang percentage="100">pt</lang>
+  </languages>
 </component>
