@@ -54,6 +54,26 @@ jobs:
         sudo apt install -y python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev
         pip3 install --break-system-packages appimage-builder
 
+    - name: Patch appimage-builder
+      run: |
+        python3 -c "
+        import os
+        path='/home/runner/.local/lib/python3.12/site-packages/appimagebuilder/modules/deploy/apt/package.py'
+        if os.path.exists(path):
+            with open(path, 'r') as f:
+                content = f.read()
+            old = 'return version.parse(self.version) > version.parse(other.version)'
+            new = 'try:\n            return version.parse(self.version) > version.parse(other.version)\n        except:\n            return self.version > other.version'
+            if old in content:
+                with open(path, 'w') as f:
+                    f.write(content.replace(old, new))
+                print('Patched appimage-builder successfully')
+            else:
+                print('Could not find target line in package.py')
+        else:
+            print(f'Path {path} does not exist')
+        "
+
     - name: Create AppImage
       run: |
         if [ -f data/VERSION ]; then
