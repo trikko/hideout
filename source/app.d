@@ -264,7 +264,6 @@ int main(string[] args)
         string currentInputFile = "";
         string currentOutputFile = "";
         string currentOutputDir = "";
-        bool currentIsDecrypt = false;
         string currentActionFile = "";
         bool currentActionIsDecrypt = false;
         GPG currentGpg = null;
@@ -303,7 +302,7 @@ int main(string[] args)
         outBox.append(btnSelectOut);
 
         version (Flatpak) {
-            entryOutputFile.setEditable(false);
+            entryOutputFile.setSensitive(false);
         }
 
         auto lblPwd = new gtk.label.Label(_(Msg.pwd_label));
@@ -665,6 +664,9 @@ int main(string[] args)
             pageProgress.setTitle(decrypt ? _(Msg.op_decrypt) : _(Msg.op_encrypt));
             pageProgress.setDescription(_(Msg.progress_desc));
             
+            // Reset before starting
+            currentActionFile = "";
+            currentActionIsDecrypt = false;
             currentGpg = new GPG();
             
             new Thread({
@@ -690,21 +692,17 @@ int main(string[] args)
                     currentGpg = null;
 
                     idleAdd(0, cast(SourceFunc) delegate bool() {
+                        currentActionFile = outputFile;
+                        currentActionIsDecrypt = decrypt;
+
                         pageDone.setDescription(_(Msg.done_saved) ~ baseName(outputFile));
                         pageDone.setTitle(_(Msg.done_success));
                         pageDone.setIconName("object-select-symbolic");
                         
-                        btnAction.setVisible(true);
-                        if (decrypt) {
-                            btnAction.setLabel(_(Msg.btn_open));
-                        } else {
-                            btnAction.setLabel(_(Msg.btn_show_folder));
-                        }
-                        currentActionFile = outputFile;
-                        currentActionIsDecrypt = decrypt;
-                        
+                        btnAction.setLabel(decrypt ? _(Msg.btn_open) : _(Msg.btn_show_folder));
                         btnAction.setVisible(true);
                         btnRetry.setVisible(false);
+
                         stack.setVisibleChildName("done");
                         return false;
                     });
