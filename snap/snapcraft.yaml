@@ -1,0 +1,49 @@
+name: hideout
+base: core24
+version: '0.9.11'
+title: Hideout
+summary: Simple and secure file encryption and decryption
+description: |
+  Hideout is a minimal and secure desktop application for file encryption and decryption, 
+  powered by GnuPG. It provides a simple drag-and-drop interface to protect your sensitive files.
+contact: https://github.com/trikko/hideout/issues
+license: MIT
+issues: https://github.com/trikko/hideout/issues
+source-code: https://github.com/trikko/hideout
+website: https://github.com/trikko/hideout
+donation: https://github.com/sponsors/trikko
+
+grade: stable
+confinement: strict
+
+# L'estensione gnome configura automaticamente GTK4, Adwaita, icone e temi
+apps:
+  hideout:
+    command: bin/hideout
+    extensions: [gnome]
+    plugs:
+      - home
+    common-id: it.andreafontana.hideout
+
+parts:
+  hideout:
+    source: .
+    plugin: nil
+    build-packages:
+      - ldc
+      - dub
+      - libglib2.0-dev
+      - libgtk-4-dev
+      - libadwaita-1-dev
+    stage-packages:
+      - gnupg
+      - libphobos2-ldc-shared106
+    override-build: |
+      # Compila l'app
+      dub build --build=release
+      
+      # Installa i file nelle cartelle standard dello Snap
+      install -D hideout $SNAPCRAFT_PART_INSTALL/bin/hideout
+      install -D hideout_icon.svg $SNAPCRAFT_PART_INSTALL/share/icons/hicolor/scalable/apps/it.andreafontana.hideout.svg
+      install -D it.andreafontana.hideout.desktop $SNAPCRAFT_PART_INSTALL/share/applications/it.andreafontana.hideout.desktop
+      install -D data/it.andreafontana.hideout.metainfo.xml $SNAPCRAFT_PART_INSTALL/share/metainfo/it.andreafontana.hideout.metainfo.xml
