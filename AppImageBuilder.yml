@@ -7,6 +7,7 @@ AppDir:
     id: it.andreafontana.hideout
     name: Hideout
     icon: it.andreafontana.hideout
+    version: ${VERSION}
     exec: usr/bin/hideout
     exec_args: $@
 

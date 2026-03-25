@@ -56,6 +56,11 @@ jobs:
 
     - name: Create AppImage
       run: |
+        if [ -f data/VERSION ]; then
+          export VERSION=$(cat data/VERSION)
+        else
+          export VERSION=${{ github.ref_name }}
+        fi
         appimage-builder --recipe AppImageBuilder.yml --skip-test
 
     - name: Upload Artifact
