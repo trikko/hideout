@@ -67,6 +67,11 @@
   <screenshots>
     <screenshot type="default">
       <caption>The main window of Hideout</caption>
+      <caption xml:lang="it">La finestra principale di Hideout</caption>
+      <caption xml:lang="fr">La fenêtre principale de Hideout</caption>
+      <caption xml:lang="es">La ventana principal de Hideout</caption>
+      <caption xml:lang="de">Das Hauptfenster von Hideout</caption>
+      <caption xml:lang="pt">A janela principal do Hideout</caption>
       <image type="source">https://raw.githubusercontent.com/trikko/hideout/main/hideout_screenshot.png</image>
     </screenshot>
   </screenshots>
