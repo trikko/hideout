@@ -207,8 +207,11 @@ int main(string[] args)
                                 "[Desktop Entry]\n" ~
                                 "Name=Hideout\n" ~
                                 "Comment=Secure file encryption and decryption\n" ~
+                                "GenericName=File Encryption and Decryption\n" ~
                                 "Exec=" ~ exePath ~ " %f\n" ~
                                 "Icon=it.andreafontana.hideout\n" ~
+                                "Keywords=encryption;security;gpg;crypto;\n" ~
+                                "StartupWMClass=it.andreafontana.hideout\n" ~
                                 "Terminal=false\n" ~
                                 "Type=Application\n" ~
                                 "Categories=Utility;Security;\n" ~

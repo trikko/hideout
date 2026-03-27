@@ -1,8 +1,11 @@
 [Desktop Entry]
 Name=Hideout
 Comment=Secure file encryption and decryption
+GenericName=File Encryption and Decryption
 Exec=hideout %f
 Icon=it.andreafontana.hideout
+Keywords=encryption;security;gpg;crypto;
+StartupWMClass=it.andreafontana.hideout
 Terminal=false
 Type=Application
 Categories=Utility;Security;
