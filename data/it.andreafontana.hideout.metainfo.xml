@@ -8,12 +8,12 @@
     <name>Andrea Fontana</name>
   </developer>
 
-  <summary>Simple and secure file encryption and decryption</summary>
-  <summary xml:lang="it">Criptazione e decriptazione file semplice e sicura</summary>
-  <summary xml:lang="fr">Chiffrement et déchiffrement de fichiers simples et sécurisés</summary>
-  <summary xml:lang="es">Cifrado y descifrado de archivos sencillo y seguro</summary>
-  <summary xml:lang="de">Einfache und sichere Dateiverschlüsselung und -entschlüsselung</summary>
-  <summary xml:lang="pt">Criptografia e descriptografia de arquivos simples e segura</summary>
+  <summary>Simple and secure file encryption</summary>
+  <summary xml:lang="it">Criptazione file semplice e sicura</summary>
+  <summary xml:lang="fr">Chiffrement de fichiers sécurisé</summary>
+  <summary xml:lang="es">Cifrado seguro de archivos</summary>
+  <summary xml:lang="de">Sichere Dateiverschlüsselung</summary>
+  <summary xml:lang="pt">Criptografia segura de arquivos</summary>
 
   <description>
     <p>
