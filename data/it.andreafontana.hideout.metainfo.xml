@@ -77,7 +77,34 @@
       <caption xml:lang="es">La ventana principal de Hideout</caption>
       <caption xml:lang="de">Das Hauptfenster von Hideout</caption>
       <caption xml:lang="pt">A janela principal do Hideout</caption>
-      <image type="source">https://raw.githubusercontent.com/trikko/hideout/main/hideout_screenshot_cropped.png</image>
+      <image type="source">https://raw.githubusercontent.com/trikko/hideout/main/screenshots/main_window.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Options and encryption settings</caption>
+      <caption xml:lang="it">Opzioni e impostazioni di cifratura</caption>
+      <caption xml:lang="fr">Options et paramètres de chiffrement</caption>
+      <caption xml:lang="es">Opciones y ajustes de cifrado</caption>
+      <caption xml:lang="de">Optionen und Verschlüsselungseinstellungen</caption>
+      <caption xml:lang="pt">Opções e configurações de criptografia</caption>
+      <image type="source">https://raw.githubusercontent.com/trikko/hideout/main/screenshots/options.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Encryption in progress</caption>
+      <caption xml:lang="it">Cifratura in corso</caption>
+      <caption xml:lang="fr">Chiffrement en cours</caption>
+      <caption xml:lang="es">Cifrado en curso</caption>
+      <caption xml:lang="de">Verschlüsselung läuft</caption>
+      <caption xml:lang="pt">Criptografia em andamento</caption>
+      <image type="source">https://raw.githubusercontent.com/trikko/hideout/main/screenshots/progress.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Operation completed successfully</caption>
+      <caption xml:lang="it">Operazione completata con successo</caption>
+      <caption xml:lang="fr">Opération terminée avec successo</caption>
+      <caption xml:lang="es">Operación completada con éxito</caption>
+      <caption xml:lang="de">Vorgang erfolgreich abgeschlossen</caption>
+      <caption xml:lang="pt">Operação concluída com sucesso</caption>
+      <image type="source">https://raw.githubusercontent.com/trikko/hideout/main/screenshots/completed.png</image>
     </screenshot>
   </screenshots>
 

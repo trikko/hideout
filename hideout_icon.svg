@@ -1,70 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Adwaita Dark Grey 4 to Dark Grey 5 for the document -->
     <linearGradient id="doc-grad" x1="64" y1="12" x2="64" y2="116" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#5e5c64"/>
       <stop offset="1" stop-color="#241f31"/>
     </linearGradient>
-    
-    <!-- Adwaita Grey 3 to Dark Grey 4 for the folded corner -->
     <linearGradient id="fold-grad" x1="88" y1="12" x2="116" y2="40" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#77767b"/>
       <stop offset="1" stop-color="#3d3846"/>
     </linearGradient>
-    
-    <!-- Adwaita Blue 3 to Blue 5 for the Lock Body -->
     <linearGradient id="lock-body" x1="64" y1="64" x2="64" y2="96" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#3584e4"/>
       <stop offset="1" stop-color="#1a5fb4"/>
     </linearGradient>
-
-    <!-- Adwaita Light Grey 2 to 3 for the Lock Shackle -->
     <linearGradient id="lock-shackle" x1="64" y1="36" x2="64" y2="64" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#f6f5f4"/>
       <stop offset="1" stop-color="#deddda"/>
     </linearGradient>
   </defs>
-
-  <!-- ==================== DOCUMENT ==================== -->
-  
-  <!-- Document Body -->
-  <path d="M 28 12 H 88 L 116 40 V 108 C 116 112.418 112.418 116 108 116 H 28 C 23.582 116 20 112.418 20 108 V 20 C 20 15.582 23.582 12 28 12 Z" fill="url(#doc-grad)"/>
-  
-  <!-- Document Text Lines -->
+  <path d="M 24 12 H 84 L 112 40 V 108 C 112 112.418 108.418 116 104 116 H 24 C 19.582 116 16 112.418 16 108 V 20 C 16 15.582 19.582 12 24 12 Z" fill="url(#doc-grad)" stroke="#ffffff" stroke-width="2" stroke-opacity="0.2"/>
   <g fill="#ffffff" fill-opacity="0.12">
-    <rect x="36" y="32" width="40" height="4" rx="2"/>
-    <rect x="36" y="44" width="64" height="4" rx="2"/>
-    <rect x="36" y="56" width="54" height="4" rx="2"/>
-    <rect x="36" y="68" width="60" height="4" rx="2"/>
-    <rect x="36" y="80" width="48" height="4" rx="2"/>
-    <rect x="36" y="92" width="62" height="4" rx="2"/>
+    <rect x="32" y="32" width="40" height="4" rx="2"/>
+    <rect x="32" y="44" width="64" height="4" rx="2"/>
+    <rect x="32" y="56" width="54" height="4" rx="2"/>
+    <rect x="32" y="68" width="60" height="4" rx="2"/>
+    <rect x="32" y="80" width="48" height="4" rx="2"/>
+    <rect x="32" y="92" width="62" height="4" rx="2"/>
   </g>
-
-  <!-- Top Highlight -->
-  <path d="M 28 12 H 88 L 86 14 H 28 C 24.686 14 22 16.686 22 20 V 22 C 22 17.582 25.582 12 28 12 Z" fill="#ffffff" fill-opacity="0.2"/>
-
-  <!-- Document Folded Corner -->
-  <path d="M 88 12 V 36 C 88 38.209 89.791 40 92 40 H 116 L 88 12 Z" fill="url(#fold-grad)"/>
-  <path d="M 88 12 V 36 C 88 38.209 89.791 40 92 40 H 116 L 88 12 Z" fill="none" stroke="#241f31" stroke-width="1" stroke-opacity="0.5"/>
-
-  <!-- ==================== LOCK ==================== -->
-  
-  <!-- Lock Shackle -->
-  <path d="M 46 64 V 54 C 46 44.059 54.059 36 64 36 C 73.941 36 82 44.059 82 54 V 64" fill="none" stroke="url(#lock-shackle)" stroke-width="10" stroke-linecap="round"/>
-
-  <!-- Lock Body -->
-  <rect x="36" y="60" width="56" height="40" rx="8" fill="url(#lock-body)"/>
-  
-  <!-- Lock Body Top Highlight -->
-  <path d="M 44 60 H 84 C 88.418 60 92 63.582 92 68 V 70 C 92 65.582 88.418 62 84 62 H 44 C 39.582 62 36 65.582 36 70 V 68 C 36 63.582 39.582 60 44 60 Z" fill="#ffffff" fill-opacity="0.2"/>
-
-  <!-- Enlarged Keyhole Base (Dark) -->
-  <circle cx="64" cy="76" r="7" fill="#1a5fb4"/>
-  <path d="M 60 78 L 61 88 H 67 L 68 78 Z" fill="#1a5fb4"/>
-
-  <!-- Enlarged Keyhole Hole (White) -->
-  <circle cx="64" cy="76" r="5" fill="#ffffff"/>
-  <path d="M 61.5 78 L 62.5 86 H 65.5 L 66.5 78 Z" fill="#ffffff"/>
-
+  <path d="M 84 12 V 36 C 84 38.209 85.791 40 88 40 H 112 L 84 12 Z" fill="url(#fold-grad)"/>
+  <path d="M 84 12 V 36 C 84 38.209 85.791 40 88 40 H 112 L 84 12 Z" fill="none" stroke="#241f31" stroke-width="0.5"/>
+  <path d="M 42 64 V 54 C 42 44.059 50.059 36 60 36 C 69.941 36 78 44.059 78 54 V 64" fill="none" stroke="url(#lock-shackle)" stroke-width="10" stroke-linecap="round"/>
+  <rect x="32" y="60" width="56" height="40" rx="8" fill="url(#lock-body)"/>
+  <circle cx="60" cy="76" r="7" fill="#1a5fb4"/>
+  <path d="M 56 78 L 57 88 H 63 L 64 78 Z" fill="#1a5fb4"/>
+  <circle cx="60" cy="76" r="5" fill="#ffffff"/>
+  <path d="M 57.5 78 L 58.5 86 H 61.5 L 62.5 78 Z" fill="#ffffff"/>
 </svg>
