@@ -22,8 +22,8 @@ modules:
   - name: hideout
     buildsystem: simple
     build-commands:
-      # UPDATE ALSO archive url and sha256 on sources AND it.andreafontana.hideout.metainfo
-      - echo "0.9.12" > data/VERSION
+      # UPDATE ALSO tag in sources AND it.andreafontana.hideout.metainfo
+      - echo "0.9.13" > data/VERSION
       - rm -f dub.selections.json
       - GID_VERSION=$(grep "gid:adw1" dub.sdl | sed -n 's/.*version="[^0-9.]*\([0-9.]*\)".*/\1/p') && dub add-local --system "deps/gid" "$GID_VERSION"
       - dub build --build=release --d-version=Flatpak --skip-registry=all
@@ -33,10 +33,11 @@ modules:
       - install -D data/it.andreafontana.hideout.metainfo.xml /app/share/metainfo/it.andreafontana.hideout.metainfo.xml
       - install -D LICENSE /app/share/licenses/it.andreafontana.hideout/LICENSE
     sources:
-      - type: archive
-        # UPDATE ALSO echo con build-commands AND it.andreafontana.hideout.metainfo
-        url: https://github.com/trikko/hideout/archive/refs/tags/v0.9.12.tar.gz
-        sha256: bed22b77c0a8352b8ff875419f9c4b6934d12d651de6966ed0a562bedc7a3427
+      - type: git
+        # UPDATE ALSO echo in build-commands AND it.andreafontana.hideout.metainfo
+        url: https://github.com/trikko/hideout.git
+        tag: v0.9.13
+
       - type: archive
         url: https://github.com/Kymorphia/gid/archive/refs/tags/v0.9.9.tar.gz
         sha256: 5b177d8e02bba4096d5c24fc38bb3b39b99f23c8ce04736a3b93e2927eeb835e
