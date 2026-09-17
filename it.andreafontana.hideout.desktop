@@ -1,10 +1,13 @@
 [Desktop Entry]
 Name=Hideout
+Name[uk]=Ховач
 Comment=Secure file encryption and decryption
+Comment[uk]=Просте та безпечне шифрування файлів
 GenericName=File Encryption and Decryption
 Exec=hideout %f
 Icon=it.andreafontana.hideout
 Keywords=encryption;security;gpg;crypto;
+Keywords[uk]=шифрування;розшифрування;безпека;захист;криптографія;шифр;encryption;security;gpg;crypto;
 StartupWMClass=it.andreafontana.hideout
 Terminal=false
 Type=Application

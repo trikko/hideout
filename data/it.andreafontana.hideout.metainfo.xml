@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
   <name>Hideout</name>
+  <name xml:lang="uk">Ховач</name>
   <developer id="it.andreafontana">
     <name>Andrea Fontana</name>
   </developer>
@@ -19,6 +20,7 @@
   <summary xml:lang="es">Cifrado seguro de archivos</summary>
   <summary xml:lang="de">Sichere Dateiverschlüsselung</summary>
   <summary xml:lang="pt">Criptografia segura de arquivos</summary>
+  <summary xml:lang="uk">Безпечне шифрування файлів</summary>
 
   <description>
     <p>
@@ -45,6 +47,10 @@
       Hideout é um aplicativo de desktop mínimo e seguro para criptografia e descriptografia de arquivos,
       baseado em GnuPG. Ele fornece uma interface simples de arrastar e soltar para proteger seus arquivos confidenciais.
     </p>
+    <p xml:lang="uk">
+      Ховач — це простий і безпечний застосунок для шифрування та розшифрування файлів за допомогою GnuPG.
+      Має мінімалістичний інтерфейс із підтримкою перетягування файлів для швидкого захисту приватних даних.
+    </p>
     <ul>
       <li>Simple UI: Drag and drop files to encrypt or decrypt.</li>
       <li xml:lang="it">Interfaccia semplice: trascina i file per criptarli o decriptarli.</li>
@@ -52,18 +58,21 @@
       <li xml:lang="es">Interfaz sencilla: arrastre y suelte archivos para cifrarlos o descifrarlos.</li>
       <li xml:lang="de">Einfache Benutzeroberfläche: Dateien zum Verschlüsseln oder Entschlüsseln per Drag-and-Drop verschieben.</li>
       <li xml:lang="pt">Interface simples: arraste e solte arquivos para criptografá-los ou descriptografá-los.</li>
+      <li xml:lang="uk">Простий інтерфейс: перетягуйте файли для шифрування або розшифрування.</li>
       <li>Secure: Uses GPG symmetric encryption.</li>
       <li xml:lang="it">Sicuro: utilizza la crittografia simmetrica GPG.</li>
       <li xml:lang="fr">Sécurisé : utilise le chiffrement symétrique GPG.</li>
       <li xml:lang="es">Seguro: utiliza cifrado simétrico GPG.</li>
       <li xml:lang="de">Sicher: Verwendet symmetrische GPG-Verschlüsselung.</li>
       <li xml:lang="pt">Seguro: utiliza criptografia simétrica GPG.</li>
+      <li xml:lang="uk">Безпечно: використовує симетричне шифрування GPG.</li>
       <li>Multi-language: Supported in several languages.</li>
       <li xml:lang="it">Multi-lingua: supportato in diverse lingue.</li>
       <li xml:lang="fr">Multi-langue : pris en charge dans plusieurs langues.</li>
       <li xml:lang="es">Multilingüe: disponible en varios idiomas.</li>
       <li xml:lang="de">Mehrsprachig: in mehreren Sprachen verfügbar.</li>
       <li xml:lang="pt">Multilíngue: disponível em vários idiomas.</li>
+      <li xml:lang="uk">Багатомовність: доступний різними мовами.</li>
     </ul>
   </description>
 
@@ -77,6 +86,7 @@
       <caption xml:lang="es">La ventana principal de Hideout</caption>
       <caption xml:lang="de">Das Hauptfenster von Hideout</caption>
       <caption xml:lang="pt">A janela principal do Hideout</caption>
+      <caption xml:lang="uk">Головне вікно Ховача</caption>
       <image type="source">https://raw.githubusercontent.com/trikko/hideout/main/screenshots/main_window.png</image>
     </screenshot>
     <screenshot>
@@ -86,6 +96,7 @@
       <caption xml:lang="es">Opciones y ajustes de cifrado</caption>
       <caption xml:lang="de">Optionen und Verschlüsselungseinstellungen</caption>
       <caption xml:lang="pt">Opções e configurações de criptografia</caption>
+      <caption xml:lang="uk">Параметри та налаштування шифрування</caption>
       <image type="source">https://raw.githubusercontent.com/trikko/hideout/main/screenshots/options.png</image>
     </screenshot>
     <screenshot>
@@ -95,6 +106,7 @@
       <caption xml:lang="es">Cifrado en curso</caption>
       <caption xml:lang="de">Verschlüsselung läuft</caption>
       <caption xml:lang="pt">Criptografia em andamento</caption>
+      <caption xml:lang="uk">Триває шифрування</caption>
       <image type="source">https://raw.githubusercontent.com/trikko/hideout/main/screenshots/progress.png</image>
     </screenshot>
     <screenshot>
@@ -104,6 +116,7 @@
       <caption xml:lang="es">Operación completada con éxito</caption>
       <caption xml:lang="de">Vorgang erfolgreich abgeschlossen</caption>
       <caption xml:lang="pt">Operação concluída com sucesso</caption>
+      <caption xml:lang="uk">Операцію успішно завершено</caption>
       <image type="source">https://raw.githubusercontent.com/trikko/hideout/main/screenshots/completed.png</image>
     </screenshot>
   </screenshots>
@@ -145,6 +158,7 @@
     <lang percentage="100">es</lang>
     <lang percentage="100">de</lang>
     <lang percentage="100">pt</lang>
+    <lang percentage="100">uk</lang>
   </languages>
 
 </component>

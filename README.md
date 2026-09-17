@@ -8,7 +8,7 @@ Hideout is a minimal and secure desktop application for file encryption and decr
 
 - **Simple UI**: Drag and drop files to encrypt or decrypt.
 - **Secure**: Uses GPG symmetric encryption. Passphrases are handled securely.
-- **Multi-language**: Supported languages: English, Italian, French, Spanish, German, and Portuguese (BR).
+- **Multi-language**: Supported languages: English, Italian, French, Spanish, German, Portuguese (BR) and Ukrainian.
 
 ## Download  
 <a href="https://flathub.org/en/apps/it.andreafontana.hideout"><img src="https://flathub.org/api/badge?locale=en" height="60"></a>
